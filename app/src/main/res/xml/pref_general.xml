@@ -1,0 +1,32 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="extended_info"
+        android:summary="@string/pref_description_ext_info"
+        android:title="@string/pref_title_ext_info" />
+
+    <!-- NOTE: EditTextPreference accepts EditText attributes. -->
+    <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
+    <ListPreference
+        android:defaultValue="Random"
+        android:entries="@array/pref_gender_titles"
+        android:entryValues="@array/pref_gender_values"
+        android:key="gender"
+        android:negativeButtonText="@null"
+        android:positiveButtonText="@null"
+        android:title="@string/pref_title_gender_filter" />
+
+    <!-- NOTE: Hide buttons to simplify the UI. Users can touch outside the dialog to
+         dismiss it. -->
+    <!-- NOTE: ListPreference's summary should be set to its value by the activity code. -->
+    <ListPreference
+        android:defaultValue="Random"
+        android:entries="@array/pref_region_titles"
+        android:entryValues="@array/pref_region_values"
+        android:key="region"
+        android:negativeButtonText="@null"
+        android:positiveButtonText="@null"
+        android:title="@string/pref_title_region_filter" />
+
+</PreferenceScreen>
