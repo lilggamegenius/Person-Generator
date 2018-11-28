@@ -12,6 +12,7 @@
         android:id="@+id/profile_picture"
         android:layout_width="256dp"
         android:layout_height="256dp"
+        android:layout_marginTop="16dp"
         android:contentDescription="@string/avatar_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,30 +23,16 @@
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toStartOf="@+id/surname"
-        app:layout_constraintHorizontal_bias="0.56"
-        app:layout_constraintStart_toStartOf="@+id/profile_picture"
+        android:lineSpacingExtra="8sp"
+        android:textAllCaps="true"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        android:typeface="sans"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_picture"
-        tools:text="Jeana" />
-
-    <TextView
-        android:id="@+id/surname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:layout_marginLeft="2dp"
-        android:layout_marginTop="8dp"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="@+id/profile_picture"
-        app:layout_constraintStart_toEndOf="@+id/name"
-        app:layout_constraintTop_toBottomOf="@+id/profile_picture"
-        tools:text="Celan" />
+        tools:text="Jeana Celan" />
 
     <TextView
         android:id="@+id/gender"

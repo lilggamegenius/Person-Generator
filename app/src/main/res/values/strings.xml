@@ -9,6 +9,7 @@
     <string name="title_activity_settings">Options</string>
 
     <!-- Strings for the main activity -->
+    <string name="name_format">%1$s %2$s</string>
     <string name="gender_format">Gender: %s</string>
     <string name="age_format">Age: %d</string>
     <string name="region_format">Region: %s</string>
@@ -105,13 +106,13 @@
         <item>Azerbaijan</item>
         <item>Bangladesh</item>
         <item>Belgium</item>
-        <item>BosniaAndHerzegovina</item>
+        <item>Bosnia and Herzegovina</item>
         <item>Brazil</item>
         <item>Bulgaria</item>
         <item>Canada</item>
         <item>China</item>
         <item>Colombia</item>
-        <item>CostaRica</item>
+        <item>Costa Rica</item>
         <item>Denmark</item>
         <item>Egypt</item>
         <item>England</item>
@@ -132,7 +133,7 @@
         <item>Morocco</item>
         <item>Nepal</item>
         <item>Netherlands</item>
-        <item>NewZealand</item>
+        <item>New Zealand</item>
         <item>Nigeria</item>
         <item>Norway</item>
         <item>Pakistan</item>
@@ -140,7 +141,7 @@
         <item>Portugal</item>
         <item>Romania</item>
         <item>Russia</item>
-        <item>SaudiArabia</item>
+        <item>Saudi Arabia</item>
         <item>Slovakia</item>
         <item>Slovenia</item>
         <item>Spain</item>
@@ -148,7 +149,7 @@
         <item>Switzerland</item>
         <item>Turkey</item>
         <item>Ukraine</item>
-        <item>UnitedStates</item>
+        <item>United States</item>
         <item>Vietnam</item>
     </string-array>
 </resources>

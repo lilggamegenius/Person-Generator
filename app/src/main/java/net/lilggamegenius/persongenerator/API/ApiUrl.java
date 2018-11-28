@@ -5,8 +5,7 @@ import android.support.annotation.NonNull;
 import java.util.HashMap;
 import java.util.Map;
 
-@SuppressWarnings("unused")
-class ApiUrl {
+public class ApiUrl {
 	private final String API_URL;
 	private final String API_KEY;
 	private final String API_PATH;

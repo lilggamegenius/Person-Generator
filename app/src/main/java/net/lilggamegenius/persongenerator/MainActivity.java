@@ -24,6 +24,11 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.perf.metrics.AddTrace;
+
 import net.lilggamegenius.persongenerator.API.UiNameUtil;
 import net.lilggamegenius.persongenerator.JSON.Region;
 import net.lilggamegenius.persongenerator.JSON.Request;
@@ -36,20 +41,22 @@ public class MainActivity extends AppCompatActivity
 	private static final String REGION = "region";
 	private static final String TAG = "PersonGenerator";
 
+	public DatabaseReference mDatabase;
+	public TextView name;
+
 	private Spinner spinner;
 	private SwitchCompat extSwitch;
 	private SharedPreferences sharedPreferences;
 	private String[] genderValues;
-
-	private TextView name;
-	private TextView surname;
-	private TextView gender;
-	private TextView age;
-	private TextView region;
-	private ImageView profilePic;
-	private TextView phone;
-	private TextView birthday;
-	private TextView email;
+	//public TextView surname;
+	public TextView gender;
+	public TextView age;
+	public TextView region;
+	public ImageView profilePic;
+	public TextView phone;
+	public TextView birthday;
+	public TextView email;
+	private FirebaseAnalytics mFirebaseAnalytics;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +73,9 @@ public class MainActivity extends AppCompatActivity
 				this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 		drawer.addDrawerListener(toggle);
 		toggle.syncState();
+
+		// Obtain the FirebaseAnalytics instance.
+		mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
 		// todo throw into another thread
 
@@ -112,7 +122,7 @@ public class MainActivity extends AppCompatActivity
 		});
 
 		name = findViewById(R.id.name);
-		surname = findViewById(R.id.surname);
+		//surname = findViewById(R.id.surname);
 		gender = findViewById(R.id.gender);
 		age = findViewById(R.id.age);
 		region = findViewById(R.id.region);
@@ -120,15 +130,19 @@ public class MainActivity extends AppCompatActivity
 		phone = findViewById(R.id.phone);
 		birthday = findViewById(R.id.birthday);
 		email = findViewById(R.id.email);
+
+		// Write a message to the database
+		mDatabase = FirebaseDatabase.getInstance().getReference();
 	}
 
+	@AddTrace(name = "getNewPersonTrace")
 	private void getNewPerson() {
 		String regionStr, genderStr;
 		boolean ext;
 		ext = sharedPreferences.getBoolean(EXT, false);
 		regionStr = sharedPreferences.getString(REGION, Region.Random.toString());
 		genderStr = sharedPreferences.getString(GENDER, genderValues[0]);
-		UiNameUtil.callRequest(new Request(regionStr, ext, genderStr), this, name, surname, gender, region, age, profilePic, phone, birthday, email);
+		new UiNameUtil().execute(new Request(regionStr, ext, genderStr, this, null, name, gender, region, age, profilePic, phone, birthday, email));
 	}
 
 	private int getIndexFromArray(String search, String... array) {
