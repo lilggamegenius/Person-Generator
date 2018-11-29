@@ -42,7 +42,7 @@ public class ApiUrl {
 		this.map = map;
 	}
 
-	void setParameter(String key, String value) {
+	public void setParameter(String key, String value) {
 		map.put(key, value);
 	}
 

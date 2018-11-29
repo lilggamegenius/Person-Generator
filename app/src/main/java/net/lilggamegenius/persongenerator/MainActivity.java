@@ -37,8 +37,8 @@ public class MainActivity extends AppCompatActivity
 		implements NavigationView.OnNavigationItemSelectedListener {
 	//public static final String PREFERENCES = "settings";
 	private static final String EXT = "extended_info";
-	private static final String GENDER = "gender";
-	private static final String REGION = "region";
+	public static final String GENDER = "gender";
+	public static final String REGION = "region";
 	private static final String TAG = "PersonGenerator";
 
 	public DatabaseReference mDatabase;

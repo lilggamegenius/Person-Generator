@@ -119,7 +119,7 @@ public class UiNameUtil extends AsyncTask<Request, Void, Void> {
 		return null;
 	}
 
-	private static ApiUrl makeApiUrl() {
+	public static ApiUrl makeApiUrl() {
 		return new ApiUrl("https://uinames.com/", "api/");
 	}
 }

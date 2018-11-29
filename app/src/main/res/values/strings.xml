@@ -152,4 +152,9 @@
         <item>United States</item>
         <item>Vietnam</item>
     </string-array>
+    <string name="widget_name_desc">Generated Name</string>
+    <string name="widget_gender_desc">Generated Gender</string>
+    <string name="widget_region_desc">Generated Region</string>
+    <string name="widget_refresh_desc">Regenerate results</string>
+    <string name="add_widget">Add widget</string>
 </resources>
