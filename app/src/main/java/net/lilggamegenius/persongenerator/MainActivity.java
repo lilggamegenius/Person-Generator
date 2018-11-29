@@ -77,62 +77,63 @@ public class MainActivity extends AppCompatActivity
 		// Obtain the FirebaseAnalytics instance.
 		mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
-		// todo throw into another thread
 
-		genderValues = getResources().getStringArray(R.array.pref_gender_values);
+		new Thread(() -> {
+			genderValues = getResources().getStringArray(R.array.pref_gender_values);
 
-		sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+			sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-		NavigationView navigationView = findViewById(R.id.nav_view);
-		navigationView.setNavigationItemSelectedListener(this);
+			NavigationView navigationView = findViewById(R.id.nav_view);
+			navigationView.setNavigationItemSelectedListener(this);
 
-		MenuItem item = navigationView.getMenu().findItem(R.id.spinner);
-		spinner = (Spinner) item.getActionView();
+			MenuItem item = navigationView.getMenu().findItem(R.id.spinner);
+			spinner = (Spinner) item.getActionView();
 
-		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-				R.array.pref_gender_values, android.R.layout.simple_spinner_item);
-		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+					R.array.pref_gender_values, android.R.layout.simple_spinner_item);
+			adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-		spinner.setAdapter(adapter);
-		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+			spinner.setAdapter(adapter);
+			spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+				@Override
+				public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+					SharedPreferences.Editor editor = sharedPreferences.edit();
+					editor.putString(GENDER, genderValues[position]);
+					editor.apply();
+					getNewPerson();
+					//Log.i(TAG, String.format("Position: %d Saved value: %s", position, sharedPreferences.getString(GENDER, genderValues[0])));
+				}
+
+				@Override
+				public void onNothingSelected(AdapterView<?> parent) {
+				}
+			});
+			item = navigationView.getMenu().findItem(R.id.nav_ext);
+			LinearLayout linearLayout = (LinearLayout) item.getActionView();
+			extSwitch = linearLayout.findViewById(R.id.drawer_switch);
+			extSwitch.setOnClickListener(v -> {
+				//SharedPreferences sharedPreferences = getSharedPreferences(PREFERENCES, MODE_PRIVATE);
 				SharedPreferences.Editor editor = sharedPreferences.edit();
-				editor.putString(GENDER, genderValues[position]);
+				boolean ext = sharedPreferences.getBoolean(EXT, false);
+				editor.putBoolean(EXT, !ext);
 				editor.apply();
 				getNewPerson();
-				//Log.i(TAG, String.format("Position: %d Saved value: %s", position, sharedPreferences.getString(GENDER, genderValues[0])));
-			}
+				//Log.i(TAG, String.format("value: %b", !ext));
+			});
 
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-			}
-		});
-		item = navigationView.getMenu().findItem(R.id.nav_ext);
-		LinearLayout linearLayout = (LinearLayout) item.getActionView();
-		extSwitch = linearLayout.findViewById(R.id.drawer_switch);
-		extSwitch.setOnClickListener(v -> {
-			//SharedPreferences sharedPreferences = getSharedPreferences(PREFERENCES, MODE_PRIVATE);
-			SharedPreferences.Editor editor = sharedPreferences.edit();
-			boolean ext = sharedPreferences.getBoolean(EXT, false);
-			editor.putBoolean(EXT, !ext);
-			editor.apply();
-			getNewPerson();
-			//Log.i(TAG, String.format("value: %b", !ext));
-		});
+			name = findViewById(R.id.name);
+			//surname = findViewById(R.id.surname);
+			gender = findViewById(R.id.gender);
+			age = findViewById(R.id.age);
+			region = findViewById(R.id.region);
+			profilePic = findViewById(R.id.profile_picture);
+			phone = findViewById(R.id.phone);
+			birthday = findViewById(R.id.birthday);
+			email = findViewById(R.id.email);
 
-		name = findViewById(R.id.name);
-		//surname = findViewById(R.id.surname);
-		gender = findViewById(R.id.gender);
-		age = findViewById(R.id.age);
-		region = findViewById(R.id.region);
-		profilePic = findViewById(R.id.profile_picture);
-		phone = findViewById(R.id.phone);
-		birthday = findViewById(R.id.birthday);
-		email = findViewById(R.id.email);
-
-		// Write a message to the database
-		mDatabase = FirebaseDatabase.getInstance().getReference();
+			// Write a message to the database
+			mDatabase = FirebaseDatabase.getInstance().getReference();
+		}).start();
 	}
 
 	@AddTrace(name = "getNewPersonTrace")
